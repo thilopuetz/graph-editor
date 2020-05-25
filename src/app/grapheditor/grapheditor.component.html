@@ -1,0 +1,42 @@
+<div class="container">
+
+	<div id="graph-display">
+
+	  <div  *ngFor="let node of nodes"
+	        [id]="node.getId()" 
+	        class="node"
+	        [style.width.px]="node.getRadius()*2"
+	        [style.height.px]="node.getRadius()*2"
+	        [style.left.px]="node.getX()"
+	        [style.top.px]="node.getY()"
+	        (mousedown)="mouseDown($event, node)">
+
+	        <p *ngIf="showIds">{{node.getId()}}</p>
+	  </div> 
+
+	  <div  *ngFor="let edge of edges"
+	        class="edge"
+	        [style.left.px]="centerX(edge[0], edge[1])"
+	        [style.top.px]="centerY(edge[0], edge[1])"
+	        [style.width.px]="length(edge[0], edge[1])"
+	        [style.transform]="'rotate(' + angle(edge[0], edge[1]) + 'deg)'">
+	  </div> 
+	    
+	</div>
+
+	<div id="messages">
+		<span>{{ message }}</span>
+	</div>
+
+	<div id="control-panel">
+		<button (click)="newNode(); clearMessage();" id="create-node" class="btn">Create Node</button>
+		<button (click)="toggleId(); clearMessage();" id="toggle-numbers" class="btn">{{showIds ? "Hide Node Ids" : "Show Node Ids"}}</button>
+
+		<form id="create-edge" (ngSubmit)="newEdge(index1, index2)">
+	    	<p>Add Edge:</p>
+			<input class="node-input" type="number" name="node1" [(ngModel)]="index1" placeholder="From node...">
+			<input class="node-input" type="number" name="node2" [(ngModel)]="index2" placeholder="...to node">
+			<button (click)="clearMessage()" type="submit" class="btn">Add</button>
+		</form>
+	</div>
+</div>
