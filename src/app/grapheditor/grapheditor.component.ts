@@ -20,13 +20,13 @@ export class GrapheditorComponent implements OnInit {
 	showIds:boolean;
 	nodeClicked:boolean;
 	nodes:Node[] = [];
-  	edges:Array<Node>[] = [];
-  	displayBounds;
-  	radius:number = 25;
-  	border:number = 2;
-  	message:string;
+  edges:Array<Node>[] = [];
+  displayBounds;
+  radius:number = 25;
+  border:number = 2;
+  message:string;
 
-  	constructor(private renderer: Renderer2, private el: ElementRef) { }
+  constructor(private renderer: Renderer2, private el: ElementRef) { }
 
   	ngOnInit(): void {
   		let div = document.getElementById('graph-display');
@@ -99,13 +99,34 @@ export class GrapheditorComponent implements OnInit {
   	}
 
   	mouseDown(event, node){
+
   		let mousemove = this.renderer.listen('document', 'mousemove', (e) => {
-			node.setX(e.clientX - node.getRadius() - node.getBorder());
-  			node.setY(e.clientY - node.getRadius() - node.getBorder());
-		});
-		let mouseup = this.renderer.listen('document', 'mouseup', (evt) => {
+
+        if((e.clientX - node.getRadius() - node.getBorder()) < this.displayBounds.x){
+          node.setX(this.displayBounds.x);
+
+        } else if ((e.clientX + node.getRadius() + node.getBorder()) > this.displayBounds.x + this.displayBounds.width){
+          node.setX(this.displayBounds.x + this.displayBounds.width  - 2*node.getRadius() - node.getBorder());
+
+        } else {
+          node.setX(e.clientX - node.getRadius() - node.getBorder());
+        }
+
+        if((e.clientY - node.getRadius() - node.getBorder()) < this.displayBounds.y){
+          node.setY(this.displayBounds.y);
+
+        } else if ((e.clientY + node.getRadius() + node.getBorder()) > this.displayBounds.y + this.displayBounds.height){
+          node.setY(this.displayBounds.y + this.displayBounds.height  - 2*node.getRadius() - node.getBorder());
+
+        } else {
+          node.setY(e.clientY - node.getRadius() - node.getBorder());
+        }
+			  
+		  });
+
+		  let mouseup = this.renderer.listen('document', 'mouseup', (evt) => {
 		  	mousemove();
-		})
+		  });
   	}
 
   	clearMessage(){
@@ -125,7 +146,7 @@ export class GrapheditorComponent implements OnInit {
   	}
 
   	angle(n1, n2){
-    	return Math.round(calcEdgeAngle(n1, n2));
+    	return calcEdgeAngle(n1, n2);
   	}
 
 }

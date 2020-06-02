@@ -14,7 +14,7 @@ export class Node{
     this.border = b;
   }
 
-  getId = () => this.id;
+  	getId = () => this.id;
 	getX = () => this.xPos;
 	getY = () => this.yPos;
 	getRadius = () => this.radius;
