@@ -13,6 +13,7 @@ import { calcEdgeLength, calcEdgeCenterX, calcEdgeCenterY, calcEdgeAngle } from 
   templateUrl: './grapheditor.component.html',
   styleUrls: ['./grapheditor.component.css']
 })
+
 export class GrapheditorComponent implements OnInit {
 
 	index1:number;

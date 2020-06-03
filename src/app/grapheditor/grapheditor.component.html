@@ -24,15 +24,19 @@
 	    
 	</div>
 
+
+
 	<div id="messages">
 		<span>{{ message }}</span>
 	</div>
+
+
 
 	<div id="control-panel">
 		<div id="buttons">
 		  <button (click)="newNode(); clearMessage();" id="create-node" class="btn">Create Node</button>
 		  <button (click)="toggleId(); clearMessage();" id="toggle-numbers" class="btn">{{showIds ? "Hide Node Ids" : "Show Node Ids"}}</button>
-    </div>
+    	</div>
 
 		<form id="create-edge" (ngSubmit)="newEdge(index1, index2)">
 	    	<p>Add Edge:</p>
