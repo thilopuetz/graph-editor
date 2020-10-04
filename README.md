@@ -1,7 +1,7 @@
 
 # GraphEditor
 
-This project was implement with Angular Version 9.1.6. You can check out the UI on https://demian31.github.io/graph-editor/
+This project was implement with Angular Version 9.1.6. You can check out the UI on https://thilopuetz.github.io/graph-editor/
 
 *When a node is created it appears on a random position within the bounds of the black borderd display. 
 
